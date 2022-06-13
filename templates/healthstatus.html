@@ -1,0 +1,147 @@
+{% extends 'dashboardExtender.html' %}
+
+{% block sidebar %}
+<div class="scrollbar-sidebar">
+    <div class="app-sidebar__inner">
+        <ul class="vertical-nav-menu">
+            <li class="app-sidebar__heading">Dashboard</li>
+            <li>
+                <a href="{{ url_for('home') }}">
+                    <i class="metismenu-icon fa fa-home"></i>
+                    Home
+                </a>
+            </li>
+            
+            <li>
+                <a href="{{ url_for('bmi') }}">
+                    <i class="metismenu-icon fa fa-medkit">
+                    </i>BMI
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('healthstatus') }}"  class="mm-active">
+                    <i class="metismenu-icon fa fa-hospital-o"></i>
+                    Health Status
+                </a>
+            </li>
+            
+            <li>
+                <a href="/recommendingh/{{ session['id'] }}">
+                    <i class="metismenu-icon fa fa-assistive-listening-systems">
+                    </i>View Recommendation
+                </a>
+            </li>
+            <li>
+                <div class="btn-group">
+                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="metismenu-icon fa fa-commenting-o">
+                    </i>Consultancy
+                </a>
+                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-top">
+                    <a href="{{ url_for('consultancy') }}" tabindex="0" class="dropdown-item">Audio and Video Consultancy</a>
+                    <div tabindex="-1" class="dropdown-divider"></div>
+                    <a href="/chattingh/{{ session['id'] }}" tabindex="0" class="dropdown-item">Chat</a>
+                </div>
+            </li>
+
+            <li>
+                <div class="btn-group">
+                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        <i class="metismenu-icon fa fa-calendar-check-o">
+                        </i>Appointment
+                    </a>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-top">
+                        <a href="{{ url_for('book') }}" tabindex="0" class="dropdown-item">Book Appointment</a>
+                        <div tabindex="-1" class="dropdown-divider"></div>
+                        <a href="{{ url_for('appointments') }}" tabindex="0" class="dropdown-item">Current Appointment</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+
+<div class="app-main__inner">
+    
+    <div class="tab-content">
+        
+            <div class="row">
+                
+                <div class="col-lg-12">
+                    
+            
+                    <div class="card mb-4 widget-content bg-vicious-stance">
+                        <div class="widget-content-wrapper text-black">
+                            <div class="widget-content-center">
+                                    
+                                <center><h2><i>"Health is a state of complete harmony of the body and <strong>Mind.</strong> "</i></h2></center>
+                                &nbsp;
+                                &nbsp;
+                                <center><h3>The result of Pulse Rate, Humidity and Temperature as shown below.</h3></center>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <center>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                    <p><strong>Temperature value</strong></p> 
+                                                
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/widgets/{{temp}}"></iframe>
+            
+                                </div>
+                                        <div class="col-lg-4">
+                                            <p><strong>Humidity value</strong></p>
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/widgets/{{hum}}"></iframe>
+                                        </div>
+                                        <div class="col-lg-4">
+                                    <p><strong>Pulse Rate</strong></p>
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/widgets/{{puls}}"></iframe>
+
+                                        </div>
+
+                                </center>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <hr>
+                                &nbsp;
+                                <center>
+                                    <h3>Your Temperature and Humidity.</h3>
+                                    <br>
+                                    <br>
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperature&type=line"></iframe>
+            
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity&type=line"></iframe>
+
+                                    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/{{channel}}/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Pulse&type=line"></iframe>
+
+                            
+                                </center>
+                                </div>
+                                </center>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                       
+    </div>
+</div>
+
+<script>
+    var color = ["rgb(76, 238, 222)", "rgb(24, 22, 22)"];
+    var i = 0;
+
+    document.querySelector("#L").addEventListener("click", 
+    function(){
+        i = i < color.length ? ++i :0;
+        document.querySelector("body").style.background = color[i];
+    });
+   
+</script>
+{% endblock %}

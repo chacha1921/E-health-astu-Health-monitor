@@ -1,0 +1,99 @@
+{% extends 'adminextender.html' %} {% block sidebar %}
+<div class="scrollbar-sidebar">
+    <div class="app-sidebar__inner">
+        <ul class="vertical-nav-menu">
+            <li class="app-sidebar__heading">Admin Dashboard</li>
+            <li>
+                <a href="{{ url_for('admin_dash') }}" >
+                    <i class="metismenu-icon fa fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('view') }}" class="mm-active">
+                    <i class="metismenu-icon fa fa-user" ></i> Pateint(Device User) List
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('viewdoctor')}}">
+                    <i class="metismenu-icon fa fa-user-md">
+                    </i>Doctor list
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('comment')}}">
+                    <i class="metismenu-icon fa fa-address-card"></i>Users Comment
+                </a>
+
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 
+{% block body %}
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="container">
+            <section class="content">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <center>
+                            <h3 class="box-title">Update User</h3>
+                        </center>
+                    </div>
+
+                    <form class="form-horizontal" method="POST" action="/updateuserhw">
+                        {% for row in data %}
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Username</label>
+
+                                <div class="col-sm-10">
+                                    <input name="Username" value="{{ row[1] }}" type="text" class="form-control"  autocomplete="off" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Channel</label>
+
+                                <div class="col-sm-10">
+                                    <input name="channel" value="{{ row[11] }}" type="text" class="form-control"  autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Temperature</label>
+                                <div class="col-sm-10">
+                                    <input name="tempp" value="{{ row[12] }}" type="text" class="form-control" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Humidity</label>
+                                <div class="col-sm-10">
+                                    <input name="hum" value="{{ row[13] }}" type="text" class="form-control"  autocomplete="off" >
+                                </div>
+                            </div>
+            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Pulse Rate</label>
+                                <div class="col-sm-10">
+                                    <input name="puls" value="{{ row[14] }}" type="text" class="form-control"  autocomplete="off">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="box-footer">
+                            <a href="/viewuser"><button type="button" class="btn btn-default">Cancel</button></a>
+                            <input name="update" type="submit" class="btn btn-info pull-right" value="Update">
+                        </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script%}
+<script src="{{ url_for('static', filename='js/jquery-2.2.3.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/app.min.js')}}"></script>
+{% endblock%}
